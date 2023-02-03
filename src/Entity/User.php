@@ -25,7 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length (max: 180)]
     #[Assert\Email()]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -39,36 +39,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
     
     #[ORM\Column]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length (max: 255)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length (max: 255)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank()]
+    #[Assert\Length (max: 255)]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $address = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length (min: 5, max: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $zip_code = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length (min: 4, max: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $city = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     #[Assert\Length (min: 10, max: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $phone_number = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]

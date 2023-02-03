@@ -114,3 +114,30 @@ body {
         padding: 40px 15px 15px 15px;
     }
 }
+
+.cls input{
+    transform: translate(0%, 0%);
+    background-color: var(--antiquewhite-color);
+}
+
+.frm{
+    width: 40%;
+    transform: translate(190%, -11%);
+    box-shadow: inset 10px 10px 10px var(--antiquewhite-color), inset 10px 10px 10px var(--antiquewhite-color);
+    background-color: var(--bronzecolor);
+}
+
+.mrc{
+    background-image: url('/assets/images/tajine.png');
+    position:relative;
+    overflow: hidden;
+}
+
+.btn{
+    background-color: var(--antiquewhite-color);
+}
+
+.titre{
+    color: var(--antiquewhite-color);
+    font-weight: extra bold;
+}

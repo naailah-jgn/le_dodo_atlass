@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LoginType;
+use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,5 +28,28 @@ class SecurityController extends AbstractController
     public function logout()
     {
 
+    }
+
+    #[Route('/inscription', name: 'security.registration', methods: ['GET', 'POST'])]
+    public function registration(Request $request, UserRepository $userRepo): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+        $errors = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepo->save($user, true);
+            $this->addFlash('success', 'Your account has been successfully created !');
+            return $this->redirectToRoute('/');
+        } else {
+            foreach ($form->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+            }
+        }
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView(),
+            'errors' => $errors,
+        ]);
     }
 }
