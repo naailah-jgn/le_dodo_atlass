@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DishRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DishRepository::class)]
 class Dish
@@ -15,6 +16,7 @@ class Dish
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length (max: 100)]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -24,9 +26,11 @@ class Dish
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length (max: 255)]
     private ?string $image_dish = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length (max: 255)]
     private ?string $category = null;
 
     #[ORM\Column]
