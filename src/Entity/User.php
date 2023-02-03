@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
     
     #[ORM\Column]
-    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
+    // #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
@@ -52,19 +52,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $firstname = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, length: 50, nullable: true)]
     #[Assert\Length (max: 255)]
-    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $address = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length (min: 5, max: 50)]
-    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $zip_code = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length (min: 4, max: 50)]
-    #[Assert\NotBlank(message: "Le champ ne peut être vide")]
     private ?string $city = null;
 
     #[ORM\Column(length: 50)]

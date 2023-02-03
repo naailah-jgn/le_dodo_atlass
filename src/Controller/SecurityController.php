@@ -34,22 +34,22 @@ class SecurityController extends AbstractController
     public function registration(Request $request, UserRepository $userRepo): Response
     {
         $user = new User();
+        $user->setRoles(['ROLE_USER']);
         $form = $this->createForm(RegistrationType::class, $user);
-
+    
         $form->handleRequest($request);
-        $errors = [];
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepo->save($user, true);
-            $this->addFlash('success', 'Your account has been successfully created !');
-            return $this->redirectToRoute('/');
-        } else {
-            foreach ($form->getErrors(true) as $error) {
-                $errors[] = $error->getMessage();
+            try {
+                $user = $form->getData();
+                $userRepo->save($user, true);
+                $this->addFlash('success', 'Votre compte a bien été crée!');
+                return $this->redirectToRoute('/');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenu lors de la création de votre compte.');
             }
         }
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView(),
-            'errors' => $errors,
         ]);
     }
 }
