@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Le dodo de l'Atlas - Connexion
+{% endblock %}
+
+{% block body %}
+	<body class="fondLogin">
+		<div class="wrapper">
+			<div class="text-center mt-4 name">
+				<h3>Le dodo de l'Atlas</h3>
+			</div>
+			<div class="logo">
+				<img src="{{ asset('build/images/logododo.png') }}" alt="logo">
+			</div>
+
+			<div class="text-center mt-4 name">
+				Connectez-vous
+			</div>
+
+			{% if error %}
+				<div class="alert alert-danger">
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+				</div>
+			{% endif %}
+			<form action="{{ path('security.login') }}" method="post" class="p-3 mt-3">
+				<div class="form-field d-flex align-items-center">
+					<span class="far fa-user"></span>
+					<input type="email" name="_username" class="email fs-6" placeholder="Adresse email" value="{{ last_username }}">
+				</div>
+				<div class="form-field d-flex align-items-center">
+					<span class="fas fa-key"></span>
+					<input type="password" name="_password" class="password fs-6" placeholder="Mot de passe">
+				</div>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<input type="hidden" name="_target_path" value="./success.html.twig">
+				<button class="btn mt-3">Se connecter</button>
+			</form>
+		</div>
+	</body>
+{% endblock %}
