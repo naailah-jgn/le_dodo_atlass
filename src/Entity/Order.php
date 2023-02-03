@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -18,18 +19,27 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
     private ?int $number = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length (max: 255)]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
+    #[Assert\GreaterThanOrEqual('today')]
+    #[Assert\NotNull()]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Type("\DateTimeInterface")]
     private ?\DateTimeInterface $delivery_at = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length (max: 255)]
+    #[Assert\NotBlank()]
     private ?string $transportation_mode = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -42,6 +52,8 @@ class Order
     public function __construct()
     {
         $this->dishes = new ArrayCollection();
+        $this->created_at =  new \DateTime('now');
+        $this->delivery_at =  new \DateTime();
     }
 
     public function getId(): ?int
