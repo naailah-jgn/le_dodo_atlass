@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/bootstrap";
+.fondLogin{
+    background-image: url('/assets/images/fondlogin.png');
+    width: 175vh;
+    position:relative;
+    overflow: hidden;
+}
+
+:root {
+    --antiquewhite-color: antiquewhite;
+    --black-color: black;
+  }
+
+.login{
+    color: var(--black-color);
+    position: relative;
+    transform: translate(100px, 200px);
+    width: 20%;
+}
+
+.txt{
+    color: var(--antiquewhite-color);
+}
+
+.fonttext{
+    color: var(--antiquewhite-color);
+}
